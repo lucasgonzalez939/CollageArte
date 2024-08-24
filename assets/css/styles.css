@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin: 20px 0;
+}
+
+/* Flexbox container to position image selections on both sides */
+#collage-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Image selection container styling */
+.image-selection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+}
+
+/* Styling for images in the selection containers */
+.image-selection img {
+    width: 100px;
+    height: 100px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+/* Collage area (canvas) styling */
+#collage-area {
+    width: 800px;
+    height: 600px;
+    border: 2px solid #000;
+    position: relative;
+    background-color: #f0f0f0;
+    margin: 0 20px;
+}
+
+/* Button styles */
+button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
