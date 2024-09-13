@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resizeCanvas(); // Initial call to set the size
   
     // Load images dynamically from the images folder
-    const imageNames = ['botella 1.png','potecito 3.png', 'botella 2.png','retazo carton 1.png', 'botella 3.png','retazo carton 2.png', 'cd 1.png', 'retazo carton 3.png', 'cd 2.png', 'retazo carton 4.png', 'cucharita_azul-removebg-preview.png','tapa celeste 1.png', 'cucharita_roja-removebg-preview.png','tapita amarilla 1.png', 'plastico de un solo uso - cucharita.png','tapita azul 1.png', 'plastico de un solo uso - plato.png','tapita roja 1.png', 'potecito 1.png','tapita roja 2.png', 'potecito 2.png','tapita verde 1.png']; // Replace with your image names
+    const imageNames = ['botella1.png','potecito3.png', 'botella2.png','retazocarton1.png', 'botella3.png','retazocarton2.png', 'cd1.png', 'retazocarton3.png', 'cd2.png', 'retazocarton4.png', 'cucharitaazulremovebgpreview.png','tapaceleste1.png', 'cucharitarojaremovebgpreview.png','tapitaamarilla1.png', 'plasticodeunsolousocucharita.png','tapitaazul1.png', 'plasticodeunsolousoplato.png','tapitaroja1.png', 'potecito1.png','tapitaroja2.png', 'potecito2.png','tapitaverde1.png']; // Replace with your image names
     imageNames.forEach((imageName) => {
       const img = document.createElement('img');
       img.src = `assets/images/${imageName}`;
