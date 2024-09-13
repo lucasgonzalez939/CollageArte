@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const imageNames = ['botella 1.png','potecito 3.png', 'botella 2.png','retazo carton 1.png', 'botella 3.png','retazo carton 2.png', 'cd 1.png', 'retazo carton 3.png', 'cd 2.png', 'retazo carton 4.png', 'cucharita_azul-removebg-preview.png','tapa celeste 1.png', 'cucharita_roja-removebg-preview.png','tapita amarilla 1.png', 'plastico de un solo uso - cucharita.png','tapita azul 1.png', 'plastico de un solo uso - plato.png','tapita roja 1.png', 'potecito 1.png','tapita roja 2.png', 'potecito 2.png','tapita verde 1.png']; // Replace with your image names
     imageNames.forEach((imageName) => {
       const img = document.createElement('img');
-      img.src = `/assets/images/${imageName}`;
+      img.src = `assets/images/${imageName}`;
       img.draggable = true;
       img.addEventListener('dragstart', (e) => onDragStart(e, img));
       imageContainer.appendChild(img);
