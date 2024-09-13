@@ -1,36 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arte collage</title>
-    <link rel="stylesheet" href="/assets/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MURALES</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
-    <h1>Crea tu Collage</h1>
-    
-    <div id="collage-wrapper">
-        <!-- Left Image Selection -->
-        <div id="image-selection-left" class="image-selection">
-            <img src="/assets/images/image1.png" class="draggable-image" alt="Image 1">
-            <img src="/assets/images/image2.png" class="draggable-image" alt="Image 2">
-        </div>
-        
-        <!-- Collage Area -->
-        <div id="collage-area"></div>
-        
-        <!-- Right Image Selection -->
-        <div id="image-selection-right" class="image-selection">
-            <img src="/assets/images/image1.png" class="draggable-image" alt="Image 3">
-            <img src="/assets/images/image2.png" class="draggable-image" alt="Image 4">
-        </div>
-    </div>
-    
-    <button id="rotate-left-btn">Girar a la Izquierda</button>
-    <button id="rotate-right-btn">Girar a la Derecha</button>
-    <button id="download-btn">Descargar Collage</button>
+  <h1>MURALES</h1>
+  
+  <!-- Image container -->
+  <div id="image-container">
+    <!-- Images will be dynamically loaded here -->
+  </div>
 
-    <script src="/assets/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.0.0-rc.5/html2canvas.min.js"></script>
+  <!-- Canvas for making the collage -->
+  <div id="canvas-container">
+    <canvas id="collage-canvas"></canvas>
+  </div>
+
+  <!-- Button to download the collage -->
+  <button id="download-btn">GUARDAR</button>
+
+  <script src="/assets/js/script.js"></script>
 </body>
 </html>
