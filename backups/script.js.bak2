@@ -1,0 +1,122 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const imageContainer = document.getElementById('image-container');
+    const canvas = document.getElementById('collage-canvas');
+    const downloadBtn = document.getElementById('download-btn');
+    const ctx = canvas.getContext('2d');
+    let images = []; // Array to store images and their positions
+    let dragImage = null; // The image currently being dragged
+    let offsetX, offsetY; // Mouse offset when dragging
+  
+    // Set up canvas size
+    canvas.width = 800;
+    canvas.height = 500;
+  
+    // Load images dynamically from the images folder
+    const imageNames = ['botella 1.png','potecito 3.png', 'botella 2.png','retazo carton 1.png', 'botella 3.png','retazo carton 2.png', 'cd 1.png', 'retazo carton 3.png', 'cd 2.png', 'retazo carton 4.png', 'cucharita_azul-removebg-preview.png','tapa celeste 1.png', 'cucharita_roja-removebg-preview.png','tapita amarilla 1.png', 'plastico de un solo uso - cucharita.png','tapita azul 1.png', 'plastico de un solo uso - plato.png','tapita roja 1.png', 'potecito 1.png','tapita roja 2.png', 'potecito 2.png','tapita verde 1.png']; // Replace with your image names
+    imageNames.forEach((imageName) => {
+      const img = document.createElement('img');
+      img.src = `/assets/images/${imageName}`;
+      img.draggable = true;
+      img.addEventListener('dragstart', (e) => onDragStart(e, img));
+      imageContainer.appendChild(img);
+    });
+  
+    // Handle drag and drop from image container to canvas
+    function onDragStart(event, img) {
+      event.dataTransfer.setData('text/plain', img.src);
+    }
+  
+    canvas.addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
+  
+    canvas.addEventListener('drop', (event) => {
+      event.preventDefault();
+  
+      const imageSrc = event.dataTransfer.getData('text/plain');
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+  
+      const img = new Image();
+      img.src = imageSrc;
+      img.onload = () => {
+        // Calculate size while maintaining aspect ratio
+        const maxWidth = 150;
+        const maxHeight = 150;
+        let width = img.width;
+        let height = img.height;
+  
+        const scaleFactor = Math.min(maxWidth / width, maxHeight / height);
+        width *= scaleFactor;
+        height *= scaleFactor;
+  
+        // Store the image in the images array
+        images.push({ img, x: x - width / 2, y: y - height / 2, width, height });
+  
+        // Draw all images on the canvas
+        drawImages();
+      };
+    });
+  
+    // Draw all images on the canvas
+    function drawImages() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+      images.forEach((image) => {
+        ctx.drawImage(image.img, image.x, image.y, image.width, image.height);
+      });
+    }
+  
+    // Handle dragging on canvas
+    canvas.addEventListener('mousedown', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+  
+      // Check if an image is clicked
+      dragImage = images.find((image) =>
+        x >= image.x &&
+        x <= image.x + image.width &&
+        y >= image.y &&
+        y <= image.y + image.height
+      );
+  
+      if (dragImage) {
+        offsetX = x - dragImage.x; // Calculate the offset between mouse and image position
+        offsetY = y - dragImage.y;
+  
+        // Move the image with the mouse
+        canvas.addEventListener('mousemove', onDrag);
+        canvas.addEventListener('mouseup', onStopDrag);
+      }
+    });
+  
+    function onDrag(event) {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+  
+      // Update the image position
+      dragImage.x = x - offsetX;
+      dragImage.y = y - offsetY;
+  
+      // Redraw the canvas
+      drawImages();
+    }
+  
+    function onStopDrag() {
+      // Stop moving the image
+      canvas.removeEventListener('mousemove', onDrag);
+      canvas.removeEventListener('mouseup', onStopDrag);
+      dragImage = null;
+    }
+  
+    // Download the collage
+    downloadBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'collage.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  });
+  

@@ -1,0 +1,51 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const imageContainer = document.getElementById('image-container');
+    const canvas = document.getElementById('collage-canvas');
+    const downloadBtn = document.getElementById('download-btn');
+    const ctx = canvas.getContext('2d');
+  
+    // Set up canvas size
+    canvas.width = 800;
+    canvas.height = 500;
+  
+    // Load images dynamically from the images folder
+    const imageNames = ['botella 1.png','potecito 3.png', 'botella 2.png','retazo carton 1.png', 'botella 3.png','retazo carton 2.png', 'cd 1.png', 'retazo carton 3.png', 'cd 2.png', 'retazo carton 4.png', 'cucharita_azul-removebg-preview.png','tapa celeste 1.png', 'cucharita_roja-removebg-preview.png','tapita amarilla 1.png', 'plastico de un solo uso - cucharita.png','tapita azul 1.png', 'plastico de un solo uso - plato.png','tapita roja 1.png', 'potecito 1.png','tapita roja 2.png', 'potecito 2.png','tapita verde 1.png']; // Replace with your image names
+    imageNames.forEach((imageName) => {
+      const img = document.createElement('img');
+      img.src = `/assets/images/${imageName}`;
+      img.draggable = true;
+      img.addEventListener('dragstart', (e) => onDragStart(e, img));
+      imageContainer.appendChild(img);
+    });
+  
+    // Handle drag and drop
+    function onDragStart(event, img) {
+      event.dataTransfer.setData('text/plain', img.src);
+    }
+  
+    canvas.addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
+  
+    canvas.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const imageSrc = event.dataTransfer.getData('text/plain');
+      const x = event.clientX - canvas.getBoundingClientRect().left;
+      const y = event.clientY - canvas.getBoundingClientRect().top;
+  
+      const img = new Image();
+      img.src = imageSrc;
+      img.onload = () => {
+        ctx.drawImage(img, x, y, img.width / 2, img.height / 2); // Resize image to fit
+      };
+    });
+  
+    // Download the collage
+    downloadBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'collage.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  });
+  
